@@ -127,3 +127,30 @@ defaut.js -> 정적인 경로일 때 폴백 처리
 catch-all -> 동적인 경로에 대한 폴백 처리
 이렇게 사용하는 것으로 이해하면 좋은거 같음.
 
+### 144. catch-all 폴백 라우트 및 여러 경로 세그먼트 처리하기
+
+catch-all을 적용하고 현재 문제는 
+
+archive/2024/05에 대한 처리가 안 됨.
+
+```jsx
+export default function Page({params: { filter } }) {
+  const yearNews = getNewsForYear(filter)
+}
+```
+
+이렇게 데이터를 가져오고 있기 때문임.
+filter는 undefined | Array<string>의 타입을 가지고 있음.
+
+따라서, filter는 array임. 이에 대한 데이터를 가져와야 함.
+
+근데 보면 archive/2024는 잘 동작함 ...
+
+### 이상한 javascript ...
+
+```js
+console.log(+['2024'])
+// 2024
+```
+
+이렇게 동작하기 때문에 잘 동작하고 있음...
