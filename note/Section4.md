@@ -44,3 +44,24 @@
 
 > NextJS에서 Not Found 페이지를 보여주기 위해서는 특수한 파일인 not-found.jsx 파일을 app folder 내에 사용하면 된다.
 
+### 141. 병렬 라우트 설정 및 사용
+
+이번 챕터에서 할 일
+- news 라우트와 병렬적으로 존재하는 archive라는 라우트를 만들 것임
+- archive 라우트는 두 가지를 보여주는데
+  - 연도와 월로 탐색할 수 있는 뉴스 아카이브
+  - 최신 뉴스 목록
+
+```jsx
+// layout.jsx
+// @something1 @something2
+// 다음과 같이 병렬 라우트로 설정한 것들의 폴더 이름 `something1` `something2`를 인자로 받을 수 있음
+
+export default function Layout({something1, something2}) {
+  return (<div>
+    <div>{something1}</div>
+    <div>{something2}</div>
+  </div>)
+}
+```
+
