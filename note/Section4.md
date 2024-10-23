@@ -119,3 +119,11 @@ sol 2 ) catch-all 사용하기
 => 이렇게 함으로써 archive/year/month 이런 것도 catch-all로 [[...dateFilter]] 이렇게 처리할 수 있게 된다.
 
 > 개인적으로는 확장성이 좋아진거 같긴함.
+
+추가적인 내 생각.
+=> 결국엔 default.js와 catch-all은 모두 폴백에 대한 처리임
+
+defaut.js -> 정적인 경로일 때 폴백 처리
+catch-all -> 동적인 경로에 대한 폴백 처리
+이렇게 사용하는 것으로 이해하면 좋은거 같음.
+
