@@ -39,3 +39,8 @@
   </li>
 </ul>
 ```
+
+### 140. "Not Found" 오류 처리 및 "Not Found" 페이지 표시하기
+
+> NextJS에서 Not Found 페이지를 보여주기 위해서는 특수한 파일인 not-found.jsx 파일을 app folder 내에 사용하면 된다.
+
