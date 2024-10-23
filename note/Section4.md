@@ -91,3 +91,11 @@ page.jsx -> default.jsx로 수정한다.
 
 default.jsx로 수정하면, /archive/year과 같이 구체적인 라우트를 설정하지 않아도 fallback UI로 처리가 되어 기본적으로 보여지게 된다.
 
+### 143. Catch-All 라우트 설정
+
+현재 프로젝트의 문제점
+
+- archive 페이지에서 archive/2024로 네비게이팅하면 연도 선택 nav바가 사라짐
+
+sol 1 ) layout.jsx을 사용한다.
+
