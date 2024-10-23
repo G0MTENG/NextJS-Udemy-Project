@@ -12,8 +12,6 @@ export default function NewsPage() {
 						slug: newsSlug,
 						title: newsTitle,
 						image: newsImage,
-						data: newsDate,
-						content: newsContent,
 					} = newsItem
 
 					return (
