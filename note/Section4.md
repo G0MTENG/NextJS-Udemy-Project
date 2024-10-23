@@ -154,3 +154,99 @@ console.log(+['2024'])
 ```
 
 이렇게 동작하기 때문에 잘 동작하고 있음...
+
+### 145. Throwing (라우트 관련) 오류
+
+```js
+throw new Error('something')
+```
+
+다음과 같이 오류를 발생시킬 수 있다.
+
+### 146. 오류 페이지로 오류 처리하기
+
+error.jsx 특수 파일이 이를 캐치할 수 있다.
+
+또한, error.jsx는 클라이언트 컴포넌트로 해야 한다.
+
+```jsx
+'use client'
+
+export default function FilterError({ error }) {
+	return (
+		<div id="error">
+			<h2>An error occurred!</h2>
+			<p>{error.message}</p>
+		</div>
+	)
+}
+```
+
+### 147. 서버 vs 클라이언트 컴포넌트
+
+서버 컴포넌트 -> 서버에서 렌더링
+클라이언트 컴포넌트 -> 클라이언트에서 렌더링
+
+특별한 이유가 존재하지 않는다면 NextJS에서는 서버 컴포넌트를 클라이언트 컴포넌트로 전환하면 안 된다.
+서버에서 하는 것이 뭐든 좋기 때문이다.
+
+=> 음 ,,, 강의에서는 이렇게 설명했는데 분명 CSR과 SSR의 장단점은 분명하다고 생각한다. 이건 좀 과장된 이야기 같다고 생각한다.
+
+** 면접에서 나왔던 질문 **
+서버 컴포넌트로 개발하다가 클라이언트 컴포넌트로 전환해야 할 때 어덯게 할 수 있을까 ?
+
+```jsx
+'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+export default function MainHeader() {
+	const path = usePathname()
+
+	return (
+		<header id="main-header">
+			<div id="logo">
+				<Link href="/">NextNews</Link>
+			</div>
+			<nav>
+				<ul>
+					<li>
+						<Link
+							href="/news"
+							className={path.startsWith('/news') ? 'active' : undefined}
+						>
+							News
+						</Link>
+					</li>
+					<li>
+						<Link
+							href="/archive"
+							className={path.startsWith('/archive') ? 'active' : undefined}
+						>
+							Archive
+						</Link>
+					</li>
+				</ul>
+			</nav>
+		</header>
+	)
+}
+```
+
+현재 MainHeader 컴포넌트는 클라이언트 컴포넌트가 되었다. usePathname을 사용하기 때문이다.
+
+이렇게 전체적으로 클라이언트 컴포넌트로 전환하게 되었는데 어떻게 할 수 있을까 ??
+=> 아웃소싱 !
+
+현재 usePathname을 사용하고 있는 코드는
+
+```jsx
+<Link
+  href="/archive"
+  className={path.startsWith('/archive') ? 'active' : undefined}
+></Link>
+```
+
+> 이 부분이다. 따라서, 가능한 서버 컴포넌트로 할 수 있는 부분은 유지한 후 
+> 작은 Link 컴포넌트만 따로 아웃소싱을 통해 클라이언트 컴포넌트로 분리하는 방법이 존재한다.
