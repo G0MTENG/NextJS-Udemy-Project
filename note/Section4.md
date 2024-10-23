@@ -99,3 +99,23 @@ default.jsx로 수정하면, /archive/year과 같이 구체적인 라우트를 �
 
 sol 1 ) layout.jsx을 사용한다.
 
+> 이 부분은 강의에서 다루지 않지만, `0f4149f (HEAD -> main) layout.js를 통한 네비게이팅 사용` 커밋으로 직접 해결해봄
+
+sol 2 ) catch-all 사용하기
+
+[[...something]]
+=> 다음과 같이 catch-all을 사용할 수 있다.
+
+- @archive
+  - page.jsx
+  - [[...filter]]
+    - page.jsx
+
+다음과 같이 구성한다면, catch-all은 /archive 이후 모든 라우트에 대해 처리하기 때문에
+@archive/page.jsx와 @archive/[[...filter]]/page.jsx는 충돌을 일으키게 된다.
+
+따라서, archive/page.jsx는 삭제하고, @archive/[[...filter]]/page.jsx에 archive/page.jsx 기능들을 추가해주면 된다.
+
+=> 이렇게 함으로써 archive/year/month 이런 것도 catch-all로 [[...dateFilter]] 이렇게 처리할 수 있게 된다.
+
+> 개인적으로는 확장성이 좋아진거 같긴함.
