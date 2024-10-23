@@ -65,3 +65,29 @@ export default function Layout({something1, something2}) {
 }
 ```
 
+### 142. 병렬 라우트 및 중첩 라우트로 작업하기
+
+다음과 같이 병렬 라우트를 설정했다
+- app
+ - archive
+  - @archive
+    - [year]
+  - @latest
+
+그리고 /archive/2024로 들어가면 not-found error가 발생한다.
+
+왜 그럴까 ??
+=> 병렬 라우트는 각 라우트를 병렬적으로 처리하기 때문이다.
+=> @latest는 /year에 대한 처리를 하지 않았고, 때문에 not-found error가 발생하는 것이다.
+
+어떻게 해결할 수 있을까 ?
+@latest/[year]로 똑같이 라우트를 처리하면 될것이다.
+하지만, @latest에서 [year]는 필요하지 않다.
+
+따라서, 다른 방법을 적용할 수 있다.
+
+#### default.jsx
+page.jsx -> default.jsx로 수정한다.
+
+default.jsx로 수정하면, /archive/year과 같이 구체적인 라우트를 설정하지 않아도 fallback UI로 처리가 되어 기본적으로 보여지게 된다.
+
