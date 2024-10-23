@@ -33,6 +33,13 @@ export default function FilteredNewsPage({ params: { filter } }) {
 		newsContent = <p>No news found for the selected period.</p>
 	}
 
+	if (
+		(year && !getAvailableNewsYears().includes(Number(year))) ||
+		(month && !getAvailableNewsMonths(year).includes(Number(month)))
+	) {
+		throw new Error('Invalid Filter')
+	}
+
 	return (
 		<>
 			<header id="archive-header">
