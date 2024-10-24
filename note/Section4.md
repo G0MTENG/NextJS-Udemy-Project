@@ -297,3 +297,5 @@ export default function ImagePage({ params: { slug } }) {
 
 이러한 인터셉팅 라우트는 모달 등에서 많이 사용된다.
 
+### 150. 병렬 및 언터셉트 라우트 결합하기
+
