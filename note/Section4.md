@@ -344,3 +344,12 @@ export default function ModalDefaultPage() {
 default.jsx 파일을 만들어 기본적으로 인터셉트 라우트가 나오기 전에는 null을 return 해주어 UI에 표시를 안 하면 된다.
 
 > 원래는 page.jsx로 했는데 이게 나중에 /news/[slug]/image로 URL을 통해 들어가면 충돌을 해서 default.jsx로 수정해주었다.
+
+### 152. 프로그램 방식으로 탐색하기
+
+modal-backdrop을 클릭했을 때 다시 뒤로 돌아가기 위해서 어떻게 할 수 있는지에 대해 다룬다.
+
+하지만, 이 부분은 먼저 구현해봐서 따로 정리는 하지 않는다.
+
+프로그램 방식으로 탐색한다는 것이 `useRoute` 훅으로 라우팅하는 것을 의미한다.
+

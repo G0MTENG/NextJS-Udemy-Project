@@ -1,16 +1,9 @@
-'use client'
-
+import ModalBackdrop from '@/components/modal-backdrop'
 import { DUMMY_NEWS } from '@/dummy_data'
 import { notFound } from 'next/navigation'
-import { useRouter } from 'next/navigation'
 
 export default function InterceptedImagePage({ params: { slug } }) {
 	const newsItem = DUMMY_NEWS.find(news => news.slug === slug)
-	const router = useRouter()
-
-	const handleClickModalBackdrop = () => {
-		router.back()
-	}
 
 	if (!newsItem) {
 		notFound()
@@ -20,7 +13,7 @@ export default function InterceptedImagePage({ params: { slug } }) {
 
 	return (
 		<>
-			<div className="modal-backdrop" onClick={handleClickModalBackdrop} />
+			<ModalBackdrop />
 			<dialog className="modal" open>
 				<div className="fullscreen-image">
 					<img src={`/images/news/${newsImage}`} alt={newsTitle} />
