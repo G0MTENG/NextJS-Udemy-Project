@@ -384,3 +384,20 @@ export default function GET(request) {
 	return new Response('hello')
 }
 ```
+
+### 155. 미들웨어 사용하기
+
+프로젝트의 최상단에 middleware.js를 통해 미들웨어를 설정할 수 있다.
+
+```js
+import { NextResponse } from 'next/server'
+
+export function middleware(request) {
+	console.log(request)
+	return NextResponse.next()
+}
+
+export const config = {
+	matcher: '/news',
+}
+```
