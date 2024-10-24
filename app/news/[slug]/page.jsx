@@ -3,6 +3,7 @@
 // => parmas.slug = newsSlug
 
 import { DUMMY_NEWS } from '@/dummy_data'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 export default function NewsDetailPage({ params: { slug } }) {
@@ -24,7 +25,9 @@ export default function NewsDetailPage({ params: { slug } }) {
 	return (
 		<article className="news-article">
 			<header>
-				<img src={`/images/news/${newsImage}`} />
+				<Link href={`/news/${slug}/image`}>
+					<img src={`/images/news/${newsImage}`} />
+				</Link>
 				<h1>{newsTitle}</h1>
 				<time dateTime={newsDate}>{newsDate}</time>
 			</header>

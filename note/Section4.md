@@ -250,3 +250,50 @@ export default function MainHeader() {
 
 > 이 부분이다. 따라서, 가능한 서버 컴포넌트로 할 수 있는 부분은 유지한 후 
 > 작은 Link 컴포넌트만 따로 아웃소싱을 통해 클라이언트 컴포넌트로 분리하는 방법이 존재한다.
+
+### 148. 동적 라우트 안에 중첩된 라우트
+
+이번에는 `인터셉팅 라우트`에 대해 알아본다.
+
+news/[slug]/page.jsx에서 img를 클릭하면, 그 어떤 페이지든 이미지가 전체 화면으로 보이도록 개발할 것이다.
+
+그 전에 중첩 라우팅을 이용해서 먼저 구현해보면
+
+news/[slug]/image/page.jsx에 다음과 같이 개발할 수 있다.
+```jsx
+import { DUMMY_NEWS } from '@/dummy_data'
+import { notFound } from 'next/navigation'
+
+export default function ImagePage({ params: { slug } }) {
+	const newsItem = DUMMY_NEWS.find(news => news.slug === slug)
+
+	if (!newsItem) {
+		notFound()
+	}
+
+	const { image: newsImage, title: newsTitle } = newsItem
+
+	return (
+		<div className="fullscreen-image">
+			<img src={`/images/news/${newsImage}`} alt={newsTitle} />
+		</div>
+	)
+}
+```
+
+그리고 Link를 통해 라우팅 시키면 된다.
+
+### 149. 내비게이션 가로채기 및 가로채기 라우트 사용
+
+인터셉트 라우트는 특정 라우트로 진입 시 가로채기를 통해 다른 라우트로 라우팅 시키는 기술이다.
+
+/news/[slug]/image로 진입하는 것을 가로채보면
+
+/news/[slug]/(.)image => . (<- sibling folder)의 image (<- image route로 가는 것을 가로챈다) 라는 의미이다.
+
+따라서 /news/[slug]/image로 Link를 통해 진입하면 라우팅을 가로채고, /news/[slug]/(.)image/page.jsx가 보여지게 된다.
+
+하지만, 여기서 하드로딩을 시도하면 /news/[slug]/image의 원래 경로로 들어갈 수 있다.
+
+이러한 인터셉팅 라우트는 모달 등에서 많이 사용된다.
+
