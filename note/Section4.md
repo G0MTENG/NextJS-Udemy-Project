@@ -371,3 +371,16 @@ layout -> page 를 호출하는데 (content)에는 page.jsx를 두지 않으면 
 충돌을 일으키지 않는다.
 
 즉, (content) 에서 사용되는 layout은 그 하위 라우트에 대한 layout을 제공하는 역할을 할 수 있다.
+
+### 154. 라우트 핸들러로 API 구축하기
+
+라우트 핸들러에 대해 다룬다.
+
+라우트 핸들러를 통해 페이지 렌더링뿐만 아니라 API도 개발할 수 있다.
+
+/api/route.js
+```js
+export default function GET(request) {
+	return new Response('hello')
+}
+```
