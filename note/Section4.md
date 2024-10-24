@@ -299,3 +299,48 @@ export default function ImagePage({ params: { slug } }) {
 
 ### 150. 병렬 및 언터셉트 라우트 결합하기
 
+한 번에 많은 것들이 변경되고 그래서 어떤 것들을 변경했는지에 대해 정리한다.
+
+우선, 기존 개발했던 코드는 Link를 통해 /news/[slug]/image로 라우팅하여 이미지에 대해 접근하는데
+intercepting route를 통해 modal을 띄우는 방식이다.
+
+하지만, 다음과 같은 방식을 사용하면 그 인터셉트 페이지로 갈 뿐 원래 페이지에 대한 접근을 할 수 없다.
+때문에 layout으로 modal을 올려서 사용하는 방법을 사용한다.
+
+/news/[slug]/layout.jsx를 생성하고 다음과 같이 사용한다.
+
+```jsx
+export default function NewsDetailLayout({ children, modal }) {
+	return (
+		<>
+			{modal}
+			{children}
+		</>
+	)
+}
+```
+
+즉, @modal 폴더를 만들어야 하며, 그 인터셉트 라우트가 들어가야 하기 때문에 다음과 같은 라우팅 구조를 가지게 된다.
+
+- news/[slug]
+	- @modal
+		- (.)image
+			- page.jsx
+	- image
+		- page.jsx
+	- page.jsx
+	- layout.jsx
+	- not-found.jsx
+
+하지만, modal은 항상 있는 것이 아니다. 인터셉트 라우트. 즉, Link를 클릭한 경우에만 동작하기 때문에 이에 대해 처리를 해줘야 한다.
+
+/news/[slug]/@modal/default.jsx
+```jsx
+export default function ModalDefaultPage() {
+	return null
+}
+```
+
+default.jsx 파일을 만들어 기본적으로 인터셉트 라우트가 나오기 전에는 null을 return 해주어 UI에 표시를 안 하면 된다.
+
+> 원래는 page.jsx로 했는데 이게 나중에 /news/[slug]/image로 URL을 통해 들어가면 충돌을 해서 default.jsx로 수정해주었다.
